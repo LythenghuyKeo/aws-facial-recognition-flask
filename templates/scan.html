@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Webcam Capture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=PT+Sans&display=swap" rel="stylesheet">
+    <script>
+        function captureImage() {
+            const video = document.querySelector('video');
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+            video.srcObject.getVideoTracks().forEach(track => track.stop());
+
+            // Convert canvas to blob and send to server
+            canvas.toBlob(blob => {
+                const formData = new FormData();
+                formData.append('file', blob, 'webcam.jpg');
+
+                fetch('/detection', {method: 'POST', body: formData})
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data)
+                        // if (data.success) {
+                        //     window.location.href = '/attendance/' + data.user_id;
+                        // } else {
+                        //     alert('Face not recognized');
+                        // }
+                    });
+            }, 'image/jpeg');
+        }
+
+        function startCamera() {
+            const video = document.getElementById('webcam');
+            if (navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(stream => { video.srcObject = stream; });
+            }
+        }
+    </script>
+</head>
+<body onload="startCamera()" class="p-4 font-[PT Sans]">
+    <h1 class="text-[#01A5DB] font-bold text-[36px]">Attendance System</h1>
+    <video class="w-full h-[200px] justify-center" id="webcam" autoplay></video>
+    <div class="flex justify-center">
+        <button class="px-[6px] mt-[5px] py-[4px] w-[200px] bg-[#01A5DB] hover:bg-[#007399] text-white rounded-lg" onclick="captureImage()">Capture Image</button>
+    </div>
+
+</body>
+</html>
