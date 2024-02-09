@@ -16,10 +16,11 @@ s3_secret_access_key = os.environ.get('S3_SECRET_ACCESS_KEY')
 s3 = boto3.client(
     's3',
     aws_access_key_id=s3_key,
-    aws_secret_access_key=s3_secret_access_key
+    aws_secret_access_key=s3_secret_access_key,
 )
 rekognition_client=boto3.client(
     'rekognition',
+    region_name='us-west-1',
     aws_access_key_id=s3_key,
     aws_secret_access_key=s3_secret_access_key
 )
@@ -242,4 +243,5 @@ def detection():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 8080))
+    app.run(debug=True, host='0.0.0.0', port=port)
