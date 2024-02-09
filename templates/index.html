@@ -8,20 +8,27 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=PT+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Document</title>
     <script>
-              function redirectToAdminPage() {
+              function redirectToInsertPage() {
                 window.location.href = 'admin';
               }
               function toScanPage() {
                 window.location.href = 'scan';
+              }
+              function redirectToBucketPage() {
+                window.location.href = 'get_all_file';
+              }
+              function redirectToUserPage() {
+                window.location.href = 'user';
               }
     </script>
 </head>
 <body class="p-4 font-[PT Sans]">
    <div class="flex space-x-2">
        <img src="{{url_for('static', filename='logo.png')}}" class="w-16 h-16 rounded-full" >
-       <h1 class="text-[36px] text-[#01A5DB] font-bold">Welcome to the attendance system</h1>
+       <h1 class="text-[32px] text-[#01A5DB] font-bold">Welcome to the AWS's school attendance system</h1>
    </div>
     <div class="flex space-x-2 mt-[4%]">
         <p class="text-[24px] mt-[4%] font-bold">Click here to scan : </p>
@@ -30,9 +37,9 @@
     <div class="flex mt-[4%] space-x-2">
         <p class="text-[24px] mt-[4%] font-bold">View your attendance :  </p>
         <div class="grid-cols-3 space-x-2 ">
-            <button class="border-[2px] hover:text-[#01A5DB] rounded-lg"><img src="{{url_for('static', filename='student.png')}}" class="w-32 h-26"> Student</button>
-            <button class="border-[2px] hover:text-[#01A5DB] rounded-lg"><img src="{{url_for('static', filename='prof.png')}}" class="w-32 h-26"> Professor</button>
-            <button class="border-[2px] hover:text-[#01A5DB] rounded-lg" onclick="redirectToAdminPage()"><img src="{{url_for('static', filename='admin.png')}}" class="w-32 h-26"> Admin</button>
+            <button class="border-[2px] hover:text-[#01A5DB] rounded-lg" onclick="redirectToUserPage()"><img src="{{url_for('static', filename='student.png')}}" class="w-32 h-26"> Student</button>
+            <button class="border-[2px] hover:text-[#01A5DB] rounded-lg" onclick="redirectToInsertPage()"><img src="{{url_for('static', filename='admin.png')}}" class="w-32 h-26"> Admin</button>
+            <button class="border-[2px] hover:text-[#01A5DB] rounded-lg" onclick="redirectToBucketPage()"><img src="{{url_for('static', filename='bucket.png')}}" class="w-32 h-26"> My bucket</button>
         </div>
      
     </div>

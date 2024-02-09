@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=PT+Sans&display=swap" rel="stylesheet">
+    <title>Document</title>
+    <script>
+        function toHome(){
+            window.location.href='/';
+        }
+        function toStudent(id){
+           window.location.href = '/student/'+id ;
+      }
+    </script>
+
+</head>
+<body class="p-4 font-[PT Sans]  ">
+    <!-- <div class="flex space-x-2">
+        <svg onclick="navigateToHomePage()" class="mt-[3%] hover:fill-[#01A5DB]" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
+        <h1 class="text-[36px] text-[#01A5DB] font-bold">Student</h1>
+    </div> -->
+
+    <div>
+        <div class="flex space-x-2">
+            <svg onclick="toHome()" class="mt-[3%] hover:fill-[#01A5DB]" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
+            <h1 class="text-[36px] text-[#01A5DB] font-bold">Student</h1>
+        </div>
+        {% extends "bootstrap/base.html" %}
+{% block html_attribs %} lang="en" {% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12-xs">
+    
+                <hr>
+
+                <table class="table table-striped">
+                    <tr class="text-[#01A5DB]">
+                        <th >No</th>
+                        <th>Student's id</th>
+                        <th>Student's name</th>
+                        <th>Email</th>
+                        <th>Grade</th>
+                        <th>Action</th>
+                    </tr>
+                    {% for f in students %}
+                    <tr>
+                        <td>{{loop.index}}</td>
+                        <td>{{f.id}}</td>
+                        <td > {{f.name}}</td>
+                        <td>{{f.email}}</td>
+                        <td>{{f.grade}}</td>
+                        <td><button onclick="toStudent({{f.id}})" class="bg-[#01A5DB] text-white px-[5px] rounded-lg py-[1.5px]">view</button></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+</div>
+
+</body>
+</html>

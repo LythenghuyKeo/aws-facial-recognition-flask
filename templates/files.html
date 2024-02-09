@@ -1,16 +1,40 @@
-{% extends "bootstrap/base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=PT+Sans&display=swap" rel="stylesheet">
+    <title>Document</title>
+    <script>
+        function toHome(){
+            window.location.href = '/';
+        }
+    </script>
+
+</head>
+<body class="p-4 font-[PT Sans]  ">
+    <div class="flex space-x-2">
+        <svg onclick="toHome()" class="mt-[3%] hover:fill-[#01A5DB]" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
+        <h1 class="text-[36px] text-[#01A5DB] font-bold">Bucket info</h1>
+    </div>
+
+    <div>
+        {% extends "bootstrap/base.html" %}
 {% block html_attribs %} lang="en" {% endblock %}
 {% block title %} S3 Object List {% endblock %}
 {% block content %}
     <div class="container">
         <div class="row">
             <div class="col-12-xs">
-                <h3>Bucket info</h3>
                 <p>Created : {{ my_bucket.creation_date}}</p>
                 <hr>
 
                 <table class="table table-striped">
-                    <tr>
+                    <tr class="text-[#01A5DB]">
                         <th>Filename</th>
                         <th>Last modified</th>
                     </tr>
@@ -27,3 +51,7 @@
         </div>
     </div>
 {% endblock %}
+</div>
+
+</body>
+</html>
