@@ -5,14 +5,42 @@ from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy,session
 import os
 from datetime import datetime
+from google.cloud import secretmanager
+import json
+
+def access_secret_version(project_id, secret_id, version_id="latest"):
+    """
+    Accesses a secret version's payload using the Secret Manager API and returns the payload as a string.
+    """
+    # Create the Secret Manager client.
+    client = secretmanager.SecretManagerServiceClient()
+
+    # Build the resource name of the secret version.
+    name = f"projects/{project_id}/secrets/{secret_id}/versions/{version_id}"
+
+    # Access the secret version.
+    response = client.access_secret_version(request={"name": name})
+
+    # Return the decoded payload of the secret.
+    return response.payload.data.decode('UTF-8')
+
+# Example usage
+project_id = os.environ.get('GCP_PROJECT_ID')  # Ensure this environment variable is set in Cloud Run
+secret_key = os.environ.get('SECRET_KEY')
+aws_credentials_json = access_secret_version(project_id, secret_id=secret_key)
+aws_credentials = json.loads(aws_credentials_json)
+
+s3_bucket = aws_credentials["S3_BUCKET"]
+s3_key = aws_credentials["S3_KEY"]
+s3_secret_access_key = aws_credentials["S3_SECRET_ACCESS_KEY"]
 
 
-load_dotenv()  
+# load_dotenv()  
 
 
-s3_bucket = os.environ.get('S3_BUCKET')
-s3_key = os.environ.get('S3_KEY')
-s3_secret_access_key = os.environ.get('S3_SECRET_ACCESS_KEY')
+# s3_bucket = os.environ.get('S3_BUCKET')
+# s3_key = os.environ.get('S3_KEY')
+# s3_secret_access_key = os.environ.get('S3_SECRET_ACCESS_KEY')
 s3 = boto3.client(
     's3',
     aws_access_key_id=s3_key,
