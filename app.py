@@ -7,7 +7,7 @@ import os
 from datetime import datetime
 from google.cloud import secretmanager
 import json
-
+load_dotenv()  
 def access_secret_version(project_id, secret_id, version_id="latest"):
     """
     Accesses a secret version's payload using the Secret Manager API and returns the payload as a string.
